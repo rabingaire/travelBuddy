@@ -13,7 +13,7 @@ export default class Home extends Component {
 
   render() {
 		const { 
-			container, topContainer, bottomContainer, square,
+			container, topContainer, bottomContainer, square, logo,
 			loginButton, signupButton, appName
 		} = styles;
 
@@ -23,7 +23,7 @@ export default class Home extends Component {
 			<View style={ container }>
 				<View style={ topContainer }>
 					<View style={ square }>
-						<Image source={Logo} />
+						<Image source={Logo} style={ logo } />
 						<Text style={ appName }>TRAVELBUDDY</Text>
 					</View>
 				</View>
@@ -64,7 +64,12 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-around',
 	},
 	square: {
-		alignItems: 'center'
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	logo: {
+		width: 150,
+		height: 142,
 	},
 	appName: {
 		fontSize: 24,
