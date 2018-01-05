@@ -49,7 +49,7 @@ export default class NearMe extends Component {
 				>
 					<MapView.Marker
             coordinate={this.state.marker.latlng}
-            pinColor='#f57c00'
+            pinColor='#00796b'
 						onPress={() => this.refs.modal.open()}
 					/>
 				</MapView>

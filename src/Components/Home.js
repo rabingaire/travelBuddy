@@ -32,7 +32,7 @@ export default class Home extends Component {
 						title='Start Travel'
 						fontSize={20}
 						backgroundColor='#FFFFFF'
-						color='#f57c00'
+						color='#00796b'
 						width={150}
 						onPress={() => navigate('NearMe')}
 					/>
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
 	},
 	topContainer: {
 		flex: 3,
-		backgroundColor: '#f57c00',
+		backgroundColor: '#00796b',
 		flexDirection: 'column',
 		alignItems: 'center',
 		justifyContent: 'space-around',
@@ -69,6 +69,6 @@ const styles = StyleSheet.create({
 	loginButton: {
 		width: 150,
 		borderWidth: 1,
-		borderColor: '#f57c00',
+		borderColor: '#00796b',
 	}
 });
