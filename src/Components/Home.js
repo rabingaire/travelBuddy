@@ -34,7 +34,7 @@ export default class Home extends Component {
 						backgroundColor='#FFFFFF'
 						color='#f57c00'
 						width={150}
-						onPress={() => navigate('Start Travel')}
+						onPress={() => navigate('NearMe')}
 					/>
 				</View>
       </View>
