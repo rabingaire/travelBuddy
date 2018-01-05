@@ -4,59 +4,59 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import Modal from 'react-native-modalbox';
 import { Button } from 'react-native-elements';
 
-import Location from './../assets/location.png';
+//import Location from './../assets/location.png';
 //import Info from './../assets/info.png';
 
-const window = Dimensions.get('window');
-const aspectRatio = window.height / window.width;
-const latitudeDelta = 0.0922;
-const longitudeDelta = latitudeDelta * aspectRatio
+let { width, height } = Dimensions.get('window');
+const ASPECT_RATIO = width / height;
+const LATITUDE = 0;
+const LONGITUDE = 0;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 export default class NearMe extends Component {
 	static navigationOptions = ({navigation}) => ({
 		title: 'Near Me'
   });
 
-	constructor(props) {
-		super(props)
-		this.state = {
-			region: {
-				latitude: 27.6151957,
-				longitude: 85.5253509,
-				latitudeDelta: latitudeDelta,
-				longitudeDelta: longitudeDelta,
-			}, 
-			marker: {
-				latlng: {
-					latitude: 27.617268,
-					longitude: 85.528886
-				}
-      },
-      error: null
-		}
+	constructor() {
+		super();
+    this.state = {
+      region: {
+        latitude: LATITUDE,
+        longitude: LONGITUDE,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
+      }
+    };
   }
   
   componentDidMount() {
-    this.watchId = navigator.geolocation.watchPosition(
-      (position) => {
+    navigator.geolocation.getCurrentPosition(
+      position => {
         this.setState({
-          marker: {
-            latlng: {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-            }
-          },
-          error: null,
           region: {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
-            latitudeDelta: 0.0922,
-				    longitudeDelta: 0.0421,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
           }
         });
       },
-      (error) => this.setState({ error: error.message }),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000, distanceFilter: 10 },
+    (error) => console.log(error.message),
+    { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
+    this.watchID = navigator.geolocation.watchPosition(
+      position => {
+        this.setState({
+          region: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
+          }
+        });
+      }
     );
   }
 
@@ -74,17 +74,12 @@ export default class NearMe extends Component {
 		
 		return(
 			<View style={mapView}>
-				<MapView
-          provider={PROVIDER_GOOGLE}
-					style={mapView}
-					region={this.state.region} 
-				>
-          <MapView.Marker
-            coordinate={this.state.marker.latlng}
-            image={Location}
-						onPress={() => this.refs.modal.open()}            
-          />
-				</MapView>
+        <MapView
+          provider={ PROVIDER_GOOGLE }
+          style={mapView}
+          showsUserLocation={ true }
+          region={ this.state.region }
+        />
 				<Modal style={model} position={"bottom"} ref={"modal"}>
 					<View style={modelHeader}>
           	<Text style={modelHeaderText}>Delivery Details</Text>
