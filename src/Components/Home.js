@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { Button } from 'react-native-elements';
 
-// import Logo from './../assets/logo.png';
+import Logo from './../assets/logo.png';
 
 const navigationOptions = {
   header: null,
@@ -14,7 +14,7 @@ export default class Home extends Component {
   render() {
 		const { 
 			container, topContainer, bottomContainer, square,
-			loginButton, signupButton
+			loginButton, signupButton, appName
 		} = styles;
 
 		const { navigate } = this.props.navigation;
@@ -23,7 +23,8 @@ export default class Home extends Component {
 			<View style={ container }>
 				<View style={ topContainer }>
 					<View style={ square }>
-						{/* <Image source={Logo} style={{width: 150, height: 150}}/> */}
+						<Image source={Logo} />
+						<Text style={ appName }>TRAVELBUDDY</Text>
 					</View>
 				</View>
 				<View style={ bottomContainer }>
@@ -63,8 +64,13 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-around',
 	},
 	square: {
-		height: 150,
-		width: 150,
+		alignItems: 'center'
+	},
+	appName: {
+		fontSize: 24,
+		fontWeight: '600',
+		color: '#FFFFFF',
+		padding: 10
 	},
 	loginButton: {
 		width: 150,

@@ -4,15 +4,18 @@ import MapView from 'react-native-maps';
 import Modal from 'react-native-modalbox';
 import { Button } from 'react-native-elements';
 
-//import Tick from './../assets/tick.png';
+import Location from './../assets/location.png';
 //import Info from './../assets/info.png';
 
 const window = Dimensions.get('window');
+const aspectRatio = window.height / window.width;
+const latitudeDelta = 0.0922;
+const longitudeDelta = latitudeDelta * aspectRatio
 
 export default class NearMe extends Component {
 	static navigationOptions = ({navigation}) => ({
 		title: 'Near Me'
-	});
+  });
 
 	constructor(props) {
 		super(props)
@@ -20,8 +23,8 @@ export default class NearMe extends Component {
 			region: {
 				latitude: 27.6151957,
 				longitude: 85.5253509,
-				latitudeDelta: 0.0922,
-				longitudeDelta: 0.0421,
+				latitudeDelta: latitudeDelta,
+				longitudeDelta: longitudeDelta,
 			}, 
 			marker: {
 				latlng: {
@@ -75,11 +78,11 @@ export default class NearMe extends Component {
 					style={mapView}
 					region={this.state.region} 
 				>
-					<MapView.Marker
+          <MapView.Marker
             coordinate={this.state.marker.latlng}
-            pinColor='#00796b'
-						onPress={() => this.refs.modal.open()}
-					/>
+            image={Location}
+						onPress={() => this.refs.modal.open()}            
+          />
 				</MapView>
 				<Modal style={model} position={"bottom"} ref={"modal"}>
 					<View style={modelHeader}>
