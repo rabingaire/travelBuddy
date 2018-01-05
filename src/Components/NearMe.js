@@ -28,10 +28,38 @@ export default class NearMe extends Component {
 					latitude: 27.617268,
 					longitude: 85.528886
 				}
-			},
-			isOpen: false
+      },
+      error: null
 		}
-	}
+  }
+  
+  componentDidMount() {
+    this.watchId = navigator.geolocation.watchPosition(
+      (position) => {
+        this.setState({
+          marker: {
+            latlng: {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            }
+          },
+          error: null,
+          region: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: 0.0922,
+				    longitudeDelta: 0.0421,
+          }
+        });
+      },
+      (error) => this.setState({ error: error.message }),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000, distanceFilter: 10 },
+    );
+  }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchId);
+  }
 
 	render() {
 		const {
