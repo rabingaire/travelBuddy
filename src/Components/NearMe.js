@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Dimensions, StyleSheet, View, Text, Image } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import Modal from 'react-native-modalbox';
 import { Button } from 'react-native-elements';
 
@@ -75,6 +75,7 @@ export default class NearMe extends Component {
 		return(
 			<View style={mapView}>
 				<MapView
+          provider={PROVIDER_GOOGLE}
 					style={mapView}
 					region={this.state.region} 
 				>
